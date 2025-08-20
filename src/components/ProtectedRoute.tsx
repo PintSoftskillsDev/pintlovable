@@ -1,7 +1,13 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigate, useLocation } from 'react-router-dom';
+import { ReactNode } from 'react';
 
-export function ProtectedRoute({ children, requiredRole }) {
+interface ProtectedRouteProps {
+  children: ReactNode;
+  requiredRole?: 'formando' | 'formador' | 'admin';
+}
+
+export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
   const { isAuthenticated, user } = useAuth();
   const location = useLocation();
 

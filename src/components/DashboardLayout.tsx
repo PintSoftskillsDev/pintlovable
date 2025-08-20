@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { Search, Bell } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
@@ -7,10 +8,15 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-export function DashboardLayout({ children, title }) {
+interface DashboardLayoutProps {
+  children: ReactNode;
+  title?: string;
+}
+
+export function DashboardLayout({ children, title }: DashboardLayoutProps) {
   const { user } = useAuth();
 
-  const getRoleBadgeVariant = (role) => {
+  const getRoleBadgeVariant = (role: string) => {
     switch (role) {
       case 'admin':
         return 'destructive';
@@ -23,7 +29,7 @@ export function DashboardLayout({ children, title }) {
     }
   };
 
-  const getRoleLabel = (role) => {
+  const getRoleLabel = (role: string) => {
     switch (role) {
       case 'admin':
         return 'Administrador';
