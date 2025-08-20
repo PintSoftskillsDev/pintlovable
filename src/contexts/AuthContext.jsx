@@ -1,31 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export type UserRole = 'formando' | 'formador' | 'admin';
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  address?: string;
-  phone?: string;
-  linkedin?: string;
-  bio?: string;
-  profileImage?: string;
-}
-
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  register: (userData: Omit<User, 'id'> & { password: string }) => Promise<boolean>;
-  logout: () => void;
-  isAuthenticated: boolean;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext(undefined);
 
 // Mock users for demo
-const mockUsers: (User & { password: string })[] = [
+const mockUsers = [
   {
     id: '1',
     name: 'João Silva',
@@ -58,8 +36,8 @@ const mockUsers: (User & { password: string })[] = [
   },
 ];
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -72,7 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email, password) => {
     const foundUser = mockUsers.find(u => u.email === email && u.password === password);
     
     if (foundUser) {
@@ -86,14 +64,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return false;
   };
 
-  const register = async (userData: Omit<User, 'id'> & { password: string }): Promise<boolean> => {
+  const register = async (userData) => {
     // Check if email already exists
     const existingUser = mockUsers.find(u => u.email === userData.email);
     if (existingUser) {
       return false;
     }
 
-    const newUser: User & { password: string } = {
+    const newUser = {
       ...userData,
       id: Date.now().toString(),
     };

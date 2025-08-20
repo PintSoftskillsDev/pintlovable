@@ -132,7 +132,7 @@ export default function Courses() {
   const enrolledCourses = sortedCourses.filter(course => course.enrolled);
   const availableCourses = sortedCourses.filter(course => !course.enrolled);
 
-  const CourseCard = ({ course, showProgress = false }: { course: any; showProgress?: boolean }) => (
+  const CourseCard = ({ course, showProgress = false }) => (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow group">
       <div className="relative">
         <img 

@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth, UserRole } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { GraduationCap, Upload, X, Eye, EyeOff } from 'lucide-react';
+import { Upload, X, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import logoImage from '@/assets/logo.png';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -22,9 +22,9 @@ export default function Register() {
     password: '',
     confirmPassword: '',
     bio: '',
-    role: 'formando' as UserRole,
+    role: 'formando',
   });
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,16 +34,16 @@ export default function Register() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setProfileImage(reader.result as string);
+        setProfileImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -53,7 +53,7 @@ export default function Register() {
     setProfileImage(null);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -107,14 +107,11 @@ export default function Register() {
       <div className="w-full max-w-2xl">
         {/* Logo */}
         <div className="flex items-center justify-center mb-8">
-          <div className="flex items-center space-x-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-lg">
-              <GraduationCap className="w-7 h-7 text-white" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              EduPlatform
-            </span>
-          </div>
+          <img 
+            src={logoImage} 
+            alt="EduPlatform Logo" 
+            className="h-16 w-auto"
+          />
         </div>
 
         <Card className="shadow-xl border-0 bg-card/80 backdrop-blur-sm">
@@ -229,19 +226,6 @@ export default function Register() {
                     onChange={(e) => handleInputChange('linkedin', e.target.value)}
                     className="bg-background"
                   />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="role">Tipo de Utilizador</Label>
-                  <Select value={formData.role} onValueChange={(value: UserRole) => handleInputChange('role', value)}>
-                    <SelectTrigger className="bg-background">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="formando">Formando</SelectItem>
-                      <SelectItem value="formador">Formador</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
 
                 <div className="space-y-2">

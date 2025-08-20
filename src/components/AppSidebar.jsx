@@ -9,7 +9,6 @@ import {
   LogOut, 
   Users,
   Plus,
-  GraduationCap,
   FileText
 } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -27,6 +26,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
+import logoImage from '@/assets/logo.png';
 
 export function AppSidebar() {
   const { state } = useSidebar();
@@ -50,7 +50,7 @@ export function AppSidebar() {
 
     const formadorItems = [
       { title: 'Criar Curso', url: '/create-course', icon: Plus },
-      { title: 'Meus Cursos', url: '/my-courses', icon: GraduationCap },
+      { title: 'Meus Cursos', url: '/my-courses', icon: BookOpen },
       { title: 'Materiais', url: '/materials', icon: FileText },
     ];
 
@@ -77,18 +77,17 @@ export function AppSidebar() {
         {/* Logo */}
         <div className="flex items-center justify-center p-4 border-b">
           {!collapsed ? (
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <GraduationCap className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                EduPlatform
-              </span>
-            </div>
+            <img 
+              src={logoImage} 
+              alt="EduPlatform Logo" 
+              className="h-8 w-auto"
+            />
           ) : (
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <GraduationCap className="w-5 h-5 text-white" />
-            </div>
+            <img 
+              src={logoImage} 
+              alt="EduPlatform Logo" 
+              className="h-6 w-auto"
+            />
           )}
         </div>
 
