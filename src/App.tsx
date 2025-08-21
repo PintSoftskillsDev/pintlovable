@@ -10,6 +10,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Courses from "./pages/Courses";
+import Forum from "./pages/Forum";
+import Calendar from "./pages/Calendar";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,30 +41,22 @@ const App = () => (
             } />
             <Route path="/forum" element={
               <ProtectedRoute>
-                <div className="min-h-screen flex items-center justify-center">
-                  <h1 className="text-2xl">Fórum - Em Desenvolvimento</h1>
-                </div>
+                <Forum />
               </ProtectedRoute>
             } />
             <Route path="/calendar" element={
               <ProtectedRoute>
-                <div className="min-h-screen flex items-center justify-center">
-                  <h1 className="text-2xl">Calendário - Em Desenvolvimento</h1>
-                </div>
+                <Calendar />
               </ProtectedRoute>
             } />
             <Route path="/profile" element={
               <ProtectedRoute>
-                <div className="min-h-screen flex items-center justify-center">
-                  <h1 className="text-2xl">Perfil - Em Desenvolvimento</h1>
-                </div>
+                <Profile />
               </ProtectedRoute>
             } />
             <Route path="/settings" element={
               <ProtectedRoute>
-                <div className="min-h-screen flex items-center justify-center">
-                  <h1 className="text-2xl">Configurações - Em Desenvolvimento</h1>
-                </div>
+                <Settings />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
